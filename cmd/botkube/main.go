@@ -11,5 +11,5 @@ func main() {
 	if err != nil {
 		log.Fatal(fmt.Sprintf("Error in loading configuration. Error:%s", err.Error()))
 	}
-	fmt.Printf("%+v\n", conf.Communications.Slack)
+	fmt.Printf("%+v\n", conf.Communications.Mattermost)
 }

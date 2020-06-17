@@ -180,12 +180,12 @@ type Index struct {
 
 // Mattermost configuration to authentication and send notifications
 type Mattermost struct {
-	Enabled   bool
-	URL       string
-	Token     string
-	Team      string
-	Channel   string
-	NotifType NotifType `yaml:",omitempty"`
+	Enabled        bool
+	URL            string
+	Token          string
+	Team           string
+	NotifType      NotifType `yaml:",omitempty"`
+	Accessbindings []Accessbinding
 }
 
 // Webhook configuration to send notifications
@@ -273,9 +273,17 @@ func New() (*Config, error) {
 			log.Fatalf("Unmarshal error: %v", err)
 		}
 	}
-	// Map right profile's value with config
+	// Map right profile's value with config: For slack
 	for i, AccessBind := range c.Communications.Slack.Accessbindings {
 		c.Communications.Slack.Accessbindings[i].ProfileValue, err = profiles.getProfile(AccessBind.ProfileName)
+		if err != nil {
+			log.Fatalf("Unmarshal error: %v", err)
+		}
+	}
+
+	// Map right profile's value with config: For mattermost
+	for i, AccessBind := range c.Communications.Mattermost.Accessbindings {
+		c.Communications.Mattermost.Accessbindings[i].ProfileValue, err = profiles.getProfile(AccessBind.ProfileName)
 		if err != nil {
 			log.Fatalf("Unmarshal error: %v", err)
 		}
