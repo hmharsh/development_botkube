@@ -1,0 +1,5 @@
+profiles: 
+  - nam: "a"
+    description: "Profile A"
+  - nam: "b"
+    description: "Profile B"
