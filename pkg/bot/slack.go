@@ -34,7 +34,7 @@ type SlackBot struct {
 	AllowKubectl     bool
 	RestrictAccess   bool
 	ClusterName      string
-	Accessbindings   []Accessbinding
+	Accessbindings   []config.Accessbinding
 	SlackURL         string
 	BotID            string
 	DefaultNamespace string
@@ -158,7 +158,7 @@ func (sm *slackMessage) HandleMessage(b *SlackBot) {
 	if len(sm.Request) == 0 {
 		return
 	}
-	e := execute.NewDefaultExecutor(sm.Request, sm.Event.Channel, b.AllowKubectl, b.RestrictAccess, b.DefaultNamespace, b.ClusterName, b.Accessbindings, sm.IsAuthChannel)
+	e := execute.NewDefaultExecutor(sm.Request, b.AllowKubectl, b.RestrictAccess, b.DefaultNamespace, b.ClusterName, b.Accessbindings.ProfileValue, sm.IsAuthChannel)
 	sm.Response = e.Execute()
 	sm.Send()
 }

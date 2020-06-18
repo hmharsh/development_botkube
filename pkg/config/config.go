@@ -21,9 +21,9 @@ package config
 
 import (
 	"errors"
+	"github.com/infracloudio/botkube/pkg/log"
 	"gopkg.in/yaml.v2"
 	"io/ioutil"
-	"log"
 	"os"
 	"path/filepath"
 )
